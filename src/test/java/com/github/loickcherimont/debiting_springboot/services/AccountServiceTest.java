@@ -5,12 +5,9 @@ import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.hibernate.mapping.Any;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -34,16 +31,16 @@ class AccountServiceTest {
     void shouldReturnDebitedAccount() throws Exception {
 
         // GIVEN
-        Account sampleAccount = new Account(UUID.randomUUID(), "CCP", "Jean DUPONT", new Amount(UUID.randomUUID(), new BigInteger("1000"), "EUR"));
-        Account expectedAccount = new Account(UUID.randomUUID(), "CCP", "Jean DUPONT", new Amount(UUID.randomUUID(), new BigInteger("900"), "EUR"));
-        Amount debitAmount = new Amount(UUID.randomUUID(), new BigInteger("100"), "EUR");
+        Account sampleAccount = new Account("CCP", "Jean DUPONT", new Amount(new BigInteger("1000"), "EUR"));
+        Account expectedAccount = new Account("CCP", "Jean DUPONT", new Amount(new BigInteger("900"), "EUR"));
+        Amount debitAmount = new Amount(new BigInteger("100"), "EUR");
 
 
         // WHEN
-        when(accountRepository.findById(UUID.fromString("e58ed763-928c-4155-bee9-fdbaaadc15f3"))).thenReturn(Optional.of(any(Account.class)));
+        when(accountRepository.findById(any(UUID.class))).thenReturn(Optional.of(sampleAccount));
 
         // ASSERT
-        Account actualAccount = accountService.debitAccountById(sampleAccount.getId(), debitAmount);
+        Account actualAccount = accountService.debitAccountById(UUID.randomUUID(), debitAmount);
 
         assertThat(actualAccount.getAmount().getValue()).isEqualTo(expectedAccount.getAmount().getValue());
     }
