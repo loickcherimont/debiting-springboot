@@ -33,9 +33,7 @@ cd debiting-springboot
 ./mvnw clean spring-boot:run
 ```
 
-3.
-
-<!-- TODO: Explain the results after project starts -->
+3.<!-- TODO: Explain the results after project starts -->
 *🏗️ We're working on the results/preview of the application. Be patient...*
 
 <!-- TODO: Decide to keep or not  -->
@@ -47,9 +45,9 @@ cd debiting-springboot
 
 ## ▶️ Usage
 
-### [Feature]
+<!--### [Feature]
 
-<!-- TODO: Explain how to run the application -->
+TODO: Explain how to run the application -->
 *🏗️ We're working on the usage of the application. Be patient...*
 
 ## 🔑 License
