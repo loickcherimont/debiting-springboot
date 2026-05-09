@@ -16,16 +16,18 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    
+
     private String name;
     private String owner;
 
     @Embedded
     private Amount amount;
 
-    protected Account() {}
+    protected Account() {
+    }
 
-    public Account(String name, String owner, Amount amount) {
+    public Account(UUID id, String name, String owner, Amount amount) {
+        this.id = id;
         this.name = name;
         this.owner = owner;
         this.amount = amount;
@@ -33,6 +35,14 @@ public class Account {
 
     public UUID getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getOwner() {
+        return owner;
     }
 
     public Amount getAmount() {

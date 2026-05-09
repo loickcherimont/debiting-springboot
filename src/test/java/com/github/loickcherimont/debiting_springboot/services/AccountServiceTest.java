@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.github.loickcherimont.debiting_springboot.dto.DebitAmountDto;
 import com.github.loickcherimont.debiting_springboot.models.Account;
 import com.github.loickcherimont.debiting_springboot.models.Amount;
 import com.github.loickcherimont.debiting_springboot.repository.AccountRepository;
@@ -31,16 +32,17 @@ class AccountServiceTest {
     void shouldReturnDebitedAccount() throws Exception {
 
         // GIVEN
-        Account sampleAccount = new Account("CCP", "Jean DUPONT", new Amount(new BigInteger("1000"), "EUR"));
-        Account expectedAccount = new Account("CCP", "Jean DUPONT", new Amount(new BigInteger("900"), "EUR"));
-        Amount debitAmount = new Amount(new BigInteger("100"), "EUR");
-
+        Account sampleAccount = new Account(UUID.fromString("a63cc6b1-d141-471f-bb11-26847f8825ec"), "CCP",
+                "Jean DUPONT", new Amount(new BigInteger("1000"), "EUR"));
+        Account expectedAccount = new Account(UUID.fromString("a63cc6b1-d141-471f-bb11-26847f8825ec"), "CCP",
+                "Jean DUPONT", new Amount(new BigInteger("900"), "EUR"));
+        DebitAmountDto debitAmountDto = new DebitAmountDto(100);
 
         // WHEN
         when(accountRepository.findById(any(UUID.class))).thenReturn(Optional.of(sampleAccount));
 
         // ASSERT
-        Account actualAccount = accountService.debitAccountById(UUID.randomUUID(), debitAmount);
+        Account actualAccount = accountService.debitAccountById(UUID.randomUUID(), debitAmountDto);
 
         assertThat(actualAccount.getAmount().getValue()).isEqualTo(expectedAccount.getAmount().getValue());
     }
