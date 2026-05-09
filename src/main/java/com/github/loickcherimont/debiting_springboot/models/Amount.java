@@ -1,15 +1,16 @@
 package com.github.loickcherimont.debiting_springboot.models;
 
 import java.math.BigInteger;
-import java.util.UUID;
+import jakarta.persistence.Embeddable;
 
+@Embeddable
 public class Amount {
-    private UUID id;
     private BigInteger value;
     private String currency;
+
+    protected Amount() {}
     
-    public Amount(UUID id, BigInteger value, String currency) {
-        this.id = id;
+    public Amount(BigInteger value, String currency) {
         this.value = value;
         this.currency = currency;
     }
