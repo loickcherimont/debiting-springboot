@@ -1,9 +1,8 @@
 package com.github.loickcherimont.debiting_springboot.models;
 
-import java.math.BigInteger;
-import java.util.Map;
 import java.util.UUID;
 
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,15 +14,18 @@ import jakarta.persistence.Table;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     
     private String name;
     private String owner;
+
+    @Embedded
     private Amount amount;
 
-    public Account(UUID id, String name, String owner, Amount amount) {
-        this.id = id;
+    protected Account() {}
+
+    public Account(String name, String owner, Amount amount) {
         this.name = name;
         this.owner = owner;
         this.amount = amount;
