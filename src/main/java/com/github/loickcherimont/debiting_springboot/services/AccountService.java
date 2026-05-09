@@ -5,8 +5,8 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.github.loickcherimont.debiting_springboot.dto.DebitAmountDto;
 import com.github.loickcherimont.debiting_springboot.models.Account;
-import com.github.loickcherimont.debiting_springboot.models.Amount;
 import com.github.loickcherimont.debiting_springboot.repository.AccountRepository;
 
 @Service
@@ -22,10 +22,11 @@ public class AccountService {
         return  accountRepository.findById(accountId).orElseThrow(() -> new RuntimeException("ID de compte inexistant. Essayez un autre."));
     }
 
-    public Account debitAccountById(UUID accountId, Amount debitAmount) {
+    public Account debitAccountById(UUID accountId, DebitAmountDto debitAmountDto) {
         Account accountToDebit = getAccountById(accountId);
+        BigInteger sanitizedDebitAmount = BigInteger.valueOf(debitAmountDto.value());
 
-        BigInteger newValue = (accountToDebit.getAmount().getValue()).subtract(debitAmount.getValue());
+        BigInteger newValue = (accountToDebit.getAmount().getValue()).subtract(sanitizedDebitAmount);
 
         accountToDebit.getAmount().setValue(newValue);
 
