@@ -16,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.github.loickcherimont.debiting_springboot.dto.DebitAmountDto;
 import com.github.loickcherimont.debiting_springboot.models.Account;
-import com.github.loickcherimont.debiting_springboot.models.Amount;
+import com.github.loickcherimont.debiting_springboot.models.AmountEntity;
 import com.github.loickcherimont.debiting_springboot.repository.AccountRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,9 +33,9 @@ class AccountServiceTest {
 
         // GIVEN
         Account sampleAccount = new Account(UUID.fromString("a63cc6b1-d141-471f-bb11-26847f8825ec"), "CCP",
-                "Jean DUPONT", new Amount(new BigInteger("1000"), "EUR"));
+                "Jean DUPONT", new AmountEntity(new BigInteger("1000"), "EUR"));
         Account expectedAccount = new Account(UUID.fromString("a63cc6b1-d141-471f-bb11-26847f8825ec"), "CCP",
-                "Jean DUPONT", new Amount(new BigInteger("900"), "EUR"));
+                "Jean DUPONT", new AmountEntity(new BigInteger("900"), "EUR"));
         DebitAmountDto debitAmountDto = new DebitAmountDto(100);
 
         // WHEN
@@ -44,6 +44,6 @@ class AccountServiceTest {
         // ASSERT
         Account actualAccount = accountService.debitAccountById(UUID.randomUUID(), debitAmountDto);
 
-        assertThat(actualAccount.getAmount().getValue()).isEqualTo(expectedAccount.getAmount().getValue());
+        assertThat(actualAccount.getAmountEntity().getAmount()).isEqualTo(expectedAccount.getAmountEntity().getAmount());
     }
 }

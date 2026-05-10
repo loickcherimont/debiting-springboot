@@ -26,11 +26,11 @@ public class AccountService {
         Account accountToDebit = getAccountById(accountId);
         BigInteger sanitizedDebitAmount = BigInteger.valueOf(debitAmountDto.value());
 
-        BigInteger newValue = (accountToDebit.getAmount().getValue()).subtract(sanitizedDebitAmount);
+        BigInteger newValue = (accountToDebit.getAmountEntity().getAmount()).subtract(sanitizedDebitAmount);
 
-        accountToDebit.getAmount().setValue(newValue);
+        accountToDebit.getAmountEntity().setValue(newValue);
 
-        accountToDebit.setAmount(accountToDebit.getAmount());
+        accountToDebit.setAmountEntity(accountToDebit.getAmountEntity());
         return accountToDebit;
     }
 

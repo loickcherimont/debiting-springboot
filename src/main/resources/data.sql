@@ -1,5 +1,5 @@
 INSERT INTO 
-    accounts(name, owner, value, currency)
+    accounts(id, name, owner, amount, currency)
 VALUES
-    ('CCP', 'Jeanne DUPONT', 2000, 'EUR');
+    ('ff858853-1819-48ae-bf45-570adfdcef3a', 'CCP', 'Jeanne DUPONT', 2000, 'EUR');
 

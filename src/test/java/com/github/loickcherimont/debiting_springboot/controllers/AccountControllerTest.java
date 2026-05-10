@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.github.loickcherimont.debiting_springboot.dto.DebitAmountDto;
 import com.github.loickcherimont.debiting_springboot.models.Account;
-import com.github.loickcherimont.debiting_springboot.models.Amount;
+import com.github.loickcherimont.debiting_springboot.models.AmountEntity;
 import com.github.loickcherimont.debiting_springboot.services.AccountService;
 
 import tools.jackson.databind.ObjectMapper;
@@ -39,7 +39,7 @@ class AccountControllerTest {
     void shouldReturnDebitedAccount() throws Exception {
 
         // GIVEN
-        Account expectedAccount = new Account(UUID.fromString("a63cc6b1-d141-471f-bb11-26847f8825ec"), "CCP", "Jean DUPONT", new Amount(new BigInteger("900"), "EUR"));
+        Account expectedAccount = new Account(UUID.fromString("a63cc6b1-d141-471f-bb11-26847f8825ec"), "CCP", "Jean DUPONT", new AmountEntity(new BigInteger("900"), "EUR"));
         DebitAmountDto debitAmountDto = new DebitAmountDto(100);
 
         // WHEN
@@ -54,8 +54,8 @@ class AccountControllerTest {
                 .andExpect(jsonPath("$.id").value("a63cc6b1-d141-471f-bb11-26847f8825ec"))
                 .andExpect(jsonPath("$.name").value(expectedAccount.getName()))
                 .andExpect(jsonPath("$.owner").value(expectedAccount.getOwner()))
-                .andExpect(jsonPath("$.amount.value").value(expectedAccount.getAmount().getValue()))
-                .andExpect(jsonPath("$.amount.currency").value(expectedAccount.getAmount().getCurrency()));
+                .andExpect(jsonPath("$.amountEntity.amount").value(expectedAccount.getAmountEntity().getAmount()))
+                .andExpect(jsonPath("$.amountEntity.currency").value(expectedAccount.getAmountEntity().getCurrency()));
     }
 
 }
