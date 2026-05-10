@@ -21,16 +21,22 @@ public class Account {
     private String owner;
 
     @Embedded
-    private Amount amount;
+    private AmountEntity amountEntity;
 
     protected Account() {
     }
 
-    public Account(UUID id, String name, String owner, Amount amount) {
+    public Account(String name, String owner, AmountEntity amountEntity) {
+        this.name = name;
+        this.owner = owner;
+        this.amountEntity = amountEntity;
+    }
+
+    public Account(UUID id, String name, String owner, AmountEntity amountEntity) {
         this.id = id;
         this.name = name;
         this.owner = owner;
-        this.amount = amount;
+        this.amountEntity = amountEntity;
     }
 
     public UUID getId() {
@@ -45,12 +51,12 @@ public class Account {
         return owner;
     }
 
-    public Amount getAmount() {
-        return amount;
+    public AmountEntity getAmountEntity() {
+        return amountEntity;
     }
 
-    public void setAmount(Amount amount) {
-        this.amount = amount;
+    public void setAmountEntity(AmountEntity amountEntity) {
+        this.amountEntity = amountEntity;
     }
 
 }
